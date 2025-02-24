@@ -67,20 +67,24 @@
             let li = button.parentElement.parentElement;
             let taskText = li.querySelector(".task-text");
             let newText = prompt("Edit task:", taskText.innerText);
-            if (newText) {
+            if (newText && confirm("Are you sure you want to edit this task?")) {
                 taskText.innerText = newText;
                 saveTasks();
             }
         }
 
         function deleteTask(button) {
-            button.parentElement.parentElement.remove();
-            saveTasks();
+            if (confirm("Are you sure you want to delete this task?")) {
+                button.parentElement.parentElement.remove();
+                saveTasks();
+            }
         }
 
         function deleteAllTasks() {
-            document.getElementById("taskList").innerHTML = "";
-            localStorage.removeItem("tasks");
+            if (confirm("Are you sure you want to delete all tasks?")) {
+                document.getElementById("taskList").innerHTML = "";
+                localStorage.removeItem("tasks");
+            }
         }
 
         function saveTasks() {
